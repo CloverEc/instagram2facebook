@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weibo</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application", media: 'all'  %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <%= render 'shared/headder_nav' %> 
+      <% flash.each do |name, msg| %>
+        <div class="span11" >
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <a class="close" data-dismiss="alert">x</a>
+            <%=t msg  %>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
+      <div class="progress_large" style="display:none"><%= image_tag 'progress_large.gif' %></div>
+    </div><!-- container -->
+    <div class="push"><!--//--></div>
+  </div><!-- wrapper -->
+  <!-- footer -->
+  <div id = "footer">
+    <div class="container">
+      <p class="muted credit">
+      <a href="/index/terms_and_conditions" ><%=t 'Terms And Conditions' %></a>|
+      <a href="/index/trade_law"><%=t 'Notation based on specific trade law' %></a>
+      </p>
+    </div>
+  </div>
+  <div style = "margin-top:100px;"></div>
+</body>
+</html>

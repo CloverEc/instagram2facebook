@@ -1,0 +1,68 @@
+<style>
+  .main_item {
+    width: 140px;
+    height: 140px;
+    margin: 10px;
+    padding: 5px;
+    float: left;
+    border: 1px solid #ccc;
+    background: #eee;
+    box-shadow: 0 2px 1px #eee;
+  }
+
+</style>
+  <%=  form_tag '/index/index' ,method: 'get' do %>
+  <div class="well offset1 span8">
+    <%= text_field_tag :query,@query,class: 'span6' ,style: 'margin-top: 8px'%>
+    <%= submit_tag :submit ,class: "btn"%>
+  </div>
+<% end %>
+<div id="item_container" style="margin-top: 100px;"> 
+  <% if !@photos.blank? %>
+<% @photos.each do |r| %> 
+  <div class="main_item">
+    <a href="#myModal"  data-toggle="modal" id = "<%= r['id'] %>">
+    <%= image_tag(r['images']['low_resolution']['url'],id: r['id'] ,style: 'width: 140px') %>
+  </a>
+  </div>
+<% end %>
+<% end %>
+
+</div>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+    <%= form_tag 'post_facebook' do %>
+  <div class="modal-body">
+    <div class="modal-pict" ></div>
+    <p>
+  
+    <%= text_area_tag 'comment','', class: 'span4',style: 'margin: 10px;' %>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <%= submit_tag 'submit',  class: "btn btn-primary" do %>
+      Save changes
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<script>
+  $(function(){
+    $('a').click(function() {
+     src = $(this).children('img').attr("src");
+      $('.modal-pict').empty();
+      $(".modal-pict").append('<img src="' + src + '" style="width:280px;"/>');
+      $(".modal-pict").append('<input type="hidden" name="src" value="' + src + '" />');
+    }); 
+
+    $('#item_container').masonry({ 
+      itemSelector : '.main_item'
+    });
+  });
+</script>

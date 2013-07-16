@@ -1,0 +1,21 @@
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" style="font-family: 'Oswald',sans-serif;" href="/">Instgram2facebook</a>
+      <div class="pull-right">
+  <ul class="nav">
+    <% if current_user  %>
+      <li><img src ="https://graph.facebook.com/<%= current_user.uid%>/picture?type=square" style="width:25px;"></li>
+      <li>ようこそ <%= current_user.name %>さん</li>
+      <li><br /><%= link_to "ログアウト", "/signout" %></li>
+    <% else %>
+      <li><%= link_to "facebookでログイン", "/auth/facebook" %></li>
+    <% end %>
+  </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
